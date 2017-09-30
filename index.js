@@ -8,7 +8,7 @@ server.use(restifyBodyParser());
 const DEFAULT_PROXY = "http://localhost:3000/api/messages";
 
 const defaultOptions = {
-  url: DEFAULT_PROXY
+  url: process.env.PROXY_URL || DEFAULT_PROXY
 };
 
 server.post("/api/messages", (req, res, next) => {
@@ -23,6 +23,6 @@ server.get("/", (req, res, next) => {
   next();
 });
 
-server.listen(8000, () => {
+server.listen(process.env.port || process.env.PORT || 3978, () => {
   console.log('%s listening at %s', server.name, server.url);
 });

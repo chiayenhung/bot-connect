@@ -13,8 +13,14 @@ const defaultOptions = {
 
 server.post("/api/messages", (req, res, next) => {
   console.log(req.header("Authorization"));
+  const auth = req.header("Authorization");
   const body = req.body;
-  const options = Object.assign({}, defaultOptions, { body: JSON.stringify(body) });
+  const options = Object.assign({}, defaultOptions, {
+    body: JSON.stringify(body),
+    headers: {
+      Authorization: auth
+    }
+  });
   request.post(options).pipe(res);
   next();
 });
